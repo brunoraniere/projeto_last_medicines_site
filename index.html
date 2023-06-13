@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+     <style>
+          *{
+               margin: 0;
+               padding: 0;
+               box-sizing: border-box;
+          }
+          body{
+               background-color: #151515;
+               color: #eee;
+               font-family: 'Roboto Mono', monospace;
+               letter-spacing: 4px;
+               font-size: 5vw;
+          }
+          section, main{
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+               text-align: center;
+               height: 96vh;
+          }
+          #section-confirm{
+               display: none;
+          }
+          #timer{
+               display: none;
+          }
+          span{
+               width: 25%;
+          }
+          footer{
+               height: 4vh;
+               display: flex;
+          }
+          .footer-red{
+               background-color: #ff6b6b;
+          }
+          .footer-blue{
+               background-color: #48dbfb;
+          }
+          .footer-green{
+               background-color: #1dd1a1;
+          }
+          .footer-yellow{
+               background-color: #feca57;
+          }
+     </style>
+     <title>Medicines</title>
+</head>
+<body>
+     <main>
+          <section id="section-data">
+               <h1>Last medicines:</h1>
+               <p id="time">--:-- - --/--/----</p>
+          </section>
+          <h1 id="timer"></h1>
+          <section id="section-confirm">
+               <h1>Confirm</h1>
+          </section>
+     </main>
+     <footer>
+          <span class="footer-red"></span>
+          <span class="footer-blue"></span>
+          <span class="footer-green"></span>
+          <span class="footer-yellow"></span>
+     </footer>
+     <script>
+          document.addEventListener('DOMContentLoaded', function(){
+               console.log('iniciando...');
+
+               const sectionData = document.querySelector('#section-data');
+               const sectionConfirm = document.querySelector('#section-confirm');
+               const time = document.querySelector('#time');
+               const timer = document.querySelector('#timer');
+
+               let instDate = new Date();
+
+               let hour = instDate.getHours();
+               let minute = instDate.getMinutes();
+               let day = instDate.getDate();
+               let month = instDate.getMonth() + 1;
+               let year = instDate.getFullYear();
+
+               sectionData.addEventListener('click', function(){
+                    sectionData.style.display = 'none';
+                    timer.innerHTML = '3...';
+                    timer.style.display = 'block';
+                    setTimeout(function(){
+                         timer.innerHTML = '2...';
+                         setTimeout(function(){
+                              timer.innerHTML = '1...';
+                              setTimeout(function(){
+                                   timer.style.display = 'none';
+                                   sectionConfirm.style.display = 'flex';
+                                   setTimeout(function(){
+                                        sectionConfirm.style.display = 'none';
+                                        sectionData.style.display = 'flex';
+                                   }, 2500);
+                              }, 1000);
+                         }, 1000);
+                    }, 1000);
+               });
+
+               sectionConfirm.addEventListener('click', function(){
+                    instDate = new Date();
+                    hour = instDate.getHours();
+                    minute = instDate.getMinutes();
+                    day = instDate.getDate();
+                    month = instDate.getMonth() + 1;
+                    year = instDate.getFullYear();
+
+                    hour = (hour<10) ? '0' + hour : hour;
+                    minute = (minute<10) ? '0' + minute : minute;
+                    day = (day<10) ? '0' + day : day;
+                    month = (month<10) ? '0' + month : month;
+
+                    time.innerHTML = hour + ':' + minute + ' - ' + day + '/' + month + '/' + year;
+                    sectionConfirm.style.display = 'none';
+                    sectionData.style.display = 'flex';
+               });
+          });
+     </script>
+</body>
+</html>
